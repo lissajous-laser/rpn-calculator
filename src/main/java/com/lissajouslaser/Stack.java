@@ -47,7 +47,7 @@ public class Stack {
       for (int i = 0; i < numbers.length; i++) {
          if (localPointer == numbers.length)
             localPointer = 0;
-         acc =  " " + numbers[localPointer] + acc;
+         acc =  "  " + numbers[localPointer] + acc;
          localPointer++;
       }
       return acc.trim();
@@ -64,7 +64,8 @@ public class Stack {
       put(get() - operand);
    }
    public void subt() {
-      put(get() - get());
+      int subtractor = get();
+      put(get() - subtractor);
    }
 
    public void mult(int operand) {
@@ -85,6 +86,6 @@ public class Stack {
          System.out.println("Division by zero invalid");
          put(divisor);
       }   
-      else put(get() / get());
+      else put(get() / divisor);
    }
 }

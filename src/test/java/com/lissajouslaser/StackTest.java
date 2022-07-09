@@ -52,6 +52,6 @@ public class StackTest {
       
       for (int i = 100; i < 106; i++)
          stack.put(i);
-      assertEquals("102 103 104 105", stack.toString());
+      assertEquals("105  104  103  102", stack.toString());
    }
 }
