@@ -1,5 +1,5 @@
 package com.lissajouslaser;
 
 public enum Operation {
-   MUL, DIV, ADD, SUB
+   MULT, DIVI, ADDI, SUBI
 }

@@ -29,7 +29,7 @@ public class Stack {
    }
 
    private void pointerWrap() {
-      // enable pointer to wrap around array
+      // allow pointer to wrap around array
       if (pointer == numbers.length) {
          pointer = 0;
       }
@@ -40,22 +40,51 @@ public class Stack {
 
    @Override
    public String toString() {
-      // displays array from earliest to most recent numbers
+      // display array items from most recent to earliest
       String acc = "";
-      int iter = pointer;
+      int localPointer = pointer;
 
       for (int i = 0; i < numbers.length; i++) {
-         if (iter == numbers.length)
-            iter = 0;
-         acc = acc + numbers[iter] + " ";
-         iter++;
+         if (localPointer == numbers.length)
+            localPointer = 0;
+         acc =  " " + numbers[localPointer] + acc;
+         localPointer++;
       }
       return acc.trim();
    }
 
+   public void addi(int operand) {
+      put(get() + operand);
+   }
+   public void addi() {
+      put(get() + get());
+   }
 
+   public void subt(int operand) {
+      put(get() - operand);
+   }
+   public void subt() {
+      put(get() - get());
+   }
 
-   // private int addi() { TODO
+   public void mult(int operand) {
+      put(get() * operand);
+   }
+   public void mult() {
+      put(get() * get());
+   }
 
-   // } 
+   public void divi(int operand) {
+      if (operand == 0) 
+         System.out.println("Division by zero invalid");
+      else put(get() / operand);
+   }
+   public void divi() {
+      int divisor = get();
+      if (divisor == 0) {
+         System.out.println("Division by zero invalid");
+         put(divisor);
+      }   
+      else put(get() / get());
+   }
 }

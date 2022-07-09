@@ -1,5 +1,6 @@
 package com.lissajouslaser;
 
+
 /**
  * Hello world!
  *
@@ -8,13 +9,10 @@ public class App
 {
     public static void main( String[] args ) {
 
-        Stack stack = new Stack();
-
-        for (int i = 100; i < 6; i++)
-            stack.put(i);
-        
-        stack.put(32);
-        
-        System.out.println(stack);
+        TextUI ui = new TextUI();
+        ui.menu();
+        //  Pattern pattern = Pattern.compile("[0-9]+");
+        //  Matcher matcher = pattern.matcher("345");
+        //  if (matcher.find()) System.out.println(matcher.group());
     }
 }
