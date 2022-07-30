@@ -1,33 +1,45 @@
 package com.lissajouslaser;
 
-
-// first-in last-out circular buffer for size 4
+// First-in last-out buffer that wraps around.
 public class Stack {
-   private int[] numbers;
+   private float[] numbers;
    int pointer;
 
    public Stack() {
-      this(new int[4], 0);
+      this(new float[4], 0);
    }
-   public Stack(int[] numbers, int pointer) {
+
+   public Stack(float[] numbers, int pointer) {
       this.numbers = numbers;
       this.pointer = pointer;
    }
 
-   public void put(int number) {
+   /**
+    * Inserts number into the stack. If stack is full,
+    * overwrite the oldest entry in the stack.
+    */
+   public void put(float number) {
       pointerWrap();
       numbers[pointer++] = number;
    }
 
-   public int get() {
+   /**
+    * Removes and returns most recent number from the
+    * stack. 
+    */
+   public float get() {
       pointer--;
-      pointerWrap();     
-         int holder = numbers[pointer];
-         // overwrite read index with 0 
-         numbers[pointer] = 0;
-         return holder;
+      pointerWrap();
+      float holder = numbers[pointer];
+      // overwrite read index with 0
+      numbers[pointer] = 0;
+      return holder;
    }
 
+   /**
+    * Wraps the pointer index if it is out of bounds of
+    * the stack.
+    */
    private void pointerWrap() {
       // allow pointer to wrap around array
       if (pointer == numbers.length) {
@@ -40,52 +52,65 @@ public class Stack {
 
    @Override
    public String toString() {
-      // display array items from most recent to earliest
-      String acc = "";
+      // Display array items from most recent to earliest.
+      String result = "";
       int localPointer = pointer;
 
       for (int i = 0; i < numbers.length; i++) {
          if (localPointer == numbers.length)
             localPointer = 0;
-         acc =  "  " + numbers[localPointer] + acc;
+         
+         // If number is a whole number, don't print decimals.
+         float number = numbers[localPointer];
+         int numberAsInt = (int) number;
+         if (number == numberAsInt) {
+            result = "  " + numberAsInt + result;
+         } else {
+            result = "  " + number + result;
+         }
          localPointer++;
       }
-      return acc.trim();
+      return result.trim();
    }
 
-   public void addi(int operand) {
+   public void addi(float operand) {
       put(get() + operand);
    }
+
    public void addi() {
       put(get() + get());
    }
 
-   public void subt(int operand) {
+   public void subt(float operand) {
       put(get() - operand);
    }
+
    public void subt() {
-      int subtractor = get();
+      float subtractor = get();
       put(get() - subtractor);
    }
 
-   public void mult(int operand) {
+   public void mult(float operand) {
       put(get() * operand);
    }
+
    public void mult() {
       put(get() * get());
    }
 
-   public void divi(int operand) {
-      if (operand == 0) 
+   public void divi(float operand) {
+      if (operand == 0)
          System.out.println("Division by zero invalid");
-      else put(get() / operand);
+      else
+         put(get() / operand);
    }
+
    public void divi() {
-      int divisor = get();
+      float divisor = get();
       if (divisor == 0) {
          System.out.println("Division by zero invalid");
          put(divisor);
-      }   
-      else put(get() / divisor);
+      } else
+         put(get() / divisor);
    }
 }

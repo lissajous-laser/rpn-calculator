@@ -77,7 +77,7 @@ public class TextUITest {
       TextUI textUI = new TextUI();
       textUI.inputDispatcher("100");
       textUI.inputDispatcher("3/");
-      assertEquals("33  0  0  0", textUI.getNumStack().toString());      
+      assertEquals("33.333332  0  0  0", textUI.getNumStack().toString());      
    }
 
    @Test
@@ -86,6 +86,6 @@ public class TextUITest {
       textUI.inputDispatcher("100");
       textUI.inputDispatcher("3");
       textUI.inputDispatcher("/");
-      assertEquals("33  0  0  0", textUI.getNumStack().toString());      
+      assertEquals("33.333332  0  0  0", textUI.getNumStack().toString());      
    }   
 }

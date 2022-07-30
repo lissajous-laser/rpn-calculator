@@ -6,7 +6,7 @@ package com.lissajouslaser;
  */
 public class App 
 {
-    public static void main( String[] args ) {
+    public static void main(String[] args) {
 
         TextUI ui = new TextUI();
         ui.menu();

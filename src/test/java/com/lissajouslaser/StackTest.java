@@ -8,7 +8,7 @@ public class StackTest {
    @Test
    public void gettingFromInitialStackIsZero() {
       Stack stack = new Stack();
-      assertEquals(0, stack.get());
+      assertEquals(0, stack.get(), 0.0001);
    } 
 
    @Test
@@ -17,33 +17,33 @@ public class StackTest {
       stack.put(10);
       stack.put(11);
       stack.put(12);
-      assertEquals(12, stack.get());
+      assertEquals(12, stack.get(), 0.0001);
    }
 
    @Test
    public void wrapsOnAddAtIndexFour() {
-      int[] numbers = {4, 5, 6, 7};
+      float[] numbers = {4, 5, 6, 7};
       Stack stack = new Stack(numbers, 4);
       stack.put(8);
-      assertEquals(8, stack.get());
+      assertEquals(8, stack.get(), 0.0001);
    }
 
    @Test
    public void wrapsOnGetAtIndexZero() {
-      int[] numbers = {4, 5, 6, 7};
+      float[] numbers = {4, 5, 6, 7};
       Stack stack = new Stack(numbers, 0);
-      assertEquals(7, stack.get());
+      assertEquals(7, stack.get(), 0.0001);
    }
 
    @Test
    public void getFifthConsecutiveTimeIsZero() {
-      int[] numbers = {4, 5, 6, 7};
+      float[] numbers = {4, 5, 6, 7};
       Stack stack = new Stack(numbers, 0);      
       
       for (int i = 0; i < 4; i++) {
          stack.get();
       }
-      assertEquals(0, stack.get());
+      assertEquals(0, stack.get(), 0.0001);
    }
 
    @Test

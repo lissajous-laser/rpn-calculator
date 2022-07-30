@@ -11,6 +11,7 @@ public class TextUI {
    public TextUI() {
       this(new Scanner(System.in), new Stack());
    }
+
    public TextUI(Scanner scanInput, Stack numStack) {
       this.scanInput = scanInput;
       this.numStack = numStack;
@@ -18,9 +19,10 @@ public class TextUI {
 
    public void menu() {
       System.out.println("\nEnter either:");
-      System.out.println("-  an integer");
+      System.out.println("-  a number");
       System.out.println("-  an operation (+, -, *, /)");
-      System.out.println("-  an integer and operation (eg. 11+)");
+      System.out.println("-  a number and operation ");
+      System.out.println("   (eg. 11+, equivalent to entering 11 then +)");
       System.out.println("- 'q' to quit");
       
       while (true) {
@@ -34,9 +36,9 @@ public class TextUI {
    }
 
    public void inputDispatcher(String input) {
-      // integer input         
-      if (input.matches("-?\\d+"))
-         numStack.put(Integer.valueOf(input));
+      // integer input
+      if (input.matches("-?\\d+(.\\d+)*"))
+         numStack.put(Float.valueOf(input));
       // operation input
       else if (input.matches("[\\*/\\+-]{1}")) {
          switch (input) {
@@ -51,12 +53,12 @@ public class TextUI {
          }
       }
       // integer and operation input
-      else if (input.matches("-?\\d*(\\*|/|\\+|-)?")) {
-         Pattern pattern = Pattern.compile("-?\\d+");
+      else if (input.matches("-?\\d+(.\\d+)*(\\*|/|\\+|-)?")) {
+         Pattern pattern = Pattern.compile("-?\\d+(.\\d+)*");
          Matcher matcher = pattern.matcher(input);
-         int operand = 0;
+         float operand = 0;
          if (matcher.find()) 
-            operand = Integer.valueOf(matcher.group());         
+            operand = Float.valueOf(matcher.group());         
                
          pattern = Pattern.compile("[\\*/\\+-]{1}");
          matcher = pattern.matcher(input);
@@ -80,6 +82,5 @@ public class TextUI {
 
    Stack getNumStack() {
       return numStack;
-   }
-   
+   }   
 }
