@@ -6,15 +6,15 @@ import java.util.regex.Pattern;
 
 public class TextUI {
    Scanner scanInput;
-   Stack numStack;
+   Stack stack;
 
    public TextUI() {
       this(new Scanner(System.in), new Stack());
    }
 
-   public TextUI(Scanner scanInput, Stack numStack) {
+   public TextUI(Scanner scanInput, Stack stack) {
       this.scanInput = scanInput;
-      this.numStack = numStack;
+      this.stack = stack;
    }
 
    public void menu() {
@@ -26,7 +26,7 @@ public class TextUI {
       System.out.println("- 'q' to quit");
       
       while (true) {
-         System.out.println("\n" + numStack);
+         System.out.println("\n" + stack);
          String input = scanInput.nextLine().trim();
 
          if (input.equals("q"))
@@ -35,25 +35,25 @@ public class TextUI {
       }
    }
 
-   public void inputDispatcher(String input) {
-      // integer input
-      if (input.matches("-?\\d+(.\\d+)*"))
-         numStack.put(Float.valueOf(input));
-      // operation input
-      else if (input.matches("[\\*/\\+-]{1}")) {
+   void inputDispatcher(String input) {
+
+      if (input.matches("-?\\d+(.\\d+)*")) {
+         // Integer input only.
+         stack.put(Float.valueOf(input));
+      } else if (input.matches("[\\*/\\+-]{1}")) {
+         // Operator input only.
          switch (input) {
             case "*":
-               numStack.mult(); break;
+               stack.mult(); break;
             case "/":
-               numStack.divi(); break;
+               stack.divi(); break;
             case "+":
-               numStack.addi(); break;
+               stack.addi(); break;
             case "-":
-               numStack.subt(); break;
+               stack.subt(); break;
          }
-      }
-      // integer and operation input
-      else if (input.matches("-?\\d+(.\\d+)*(\\*|/|\\+|-)?")) {
+      } else if (input.matches("-?\\d+(.\\d+)*(\\*|/|\\+|-)?")) {
+         // Integer and operator input.
          Pattern pattern = Pattern.compile("-?\\d+(.\\d+)*");
          Matcher matcher = pattern.matcher(input);
          float operand = 0;
@@ -68,19 +68,25 @@ public class TextUI {
 
          switch (operator) {
             case "*":
-               numStack.mult(operand); break;
+               stack.mult(operand); break;
             case "/":
-               numStack.divi(operand); break;
+               stack.divi(operand); break;
             case "+":
-               numStack.addi(operand); break;
+               stack.addi(operand); break;
             case "-":
-               numStack.subt(operand); break;
+               stack.subt(operand); break;
          } 
+      } else if (input.isEmpty()) {
+         // Blank input - duplicates last item on
+         // the stack.
+         float number = stack.get();
+         stack.put(number);
+         stack.put(number);
       }
       else System.out.println("Invalid input.");     
    }
 
-   Stack getNumStack() {
-      return numStack;
+   Stack getStack() {
+      return stack;
    }   
 }

@@ -1,12 +1,13 @@
 package com.lissajouslaser;
 
-// First-in last-out buffer that wraps around.
+// First-in last-out buffer that wraps around backing array.
 public class Stack {
-   private float[] numbers;
-   int pointer;
+   private static final int stackSize = 4;
+   private float[] numbers; // The stack.
+   private int pointer;
 
    public Stack() {
-      this(new float[4], 0);
+      this(new float[stackSize], 0);
    }
 
    public Stack(float[] numbers, int pointer) {
@@ -25,29 +26,25 @@ public class Stack {
 
    /**
     * Removes and returns most recent number from the
-    * stack. 
+    * stack.
     */
    public float get() {
       pointer--;
       pointerWrap();
-      float holder = numbers[pointer];
-      // overwrite read index with 0
+      float temp = numbers[pointer];
+      // Overwrites index with 0, which becomes the
+      // oldest entry. Popping all values off the stack
+      // will zero out the stack.
       numbers[pointer] = 0;
-      return holder;
+      return temp;
    }
 
    /**
     * Wraps the pointer index if it is out of bounds of
-    * the stack.
+    * the backing array.
     */
    private void pointerWrap() {
-      // allow pointer to wrap around array
-      if (pointer == numbers.length) {
-         pointer = 0;
-      }
-      if (pointer < 0) {
-         pointer = numbers.length - 1;
-      }
+      pointer = Math.floorMod(pointer, numbers.length);
    }
 
    @Override
@@ -60,7 +57,8 @@ public class Stack {
          if (localPointer == numbers.length)
             localPointer = 0;
          
-         // If number is a whole number, don't print decimals.
+         // If number is a whole number, don't print decimal
+         // places.
          float number = numbers[localPointer];
          int numberAsInt = (int) number;
          if (number == numberAsInt) {

@@ -12,7 +12,7 @@ public class TextUITest {
       textUI.inputDispatcher("4");
       textUI.inputDispatcher("2");
       textUI.inputDispatcher("-2");     
-      assertEquals("-2  2  4  6", textUI.getNumStack().toString());
+      assertEquals("-2  2  4  6", textUI.getStack().toString());
    }
 
    @Test
@@ -20,7 +20,7 @@ public class TextUITest {
       TextUI textUI = new TextUI();
       textUI.inputDispatcher("7");
       textUI.inputDispatcher("0/");
-      assertEquals("7  0  0  0", textUI.getNumStack().toString());
+      assertEquals("7  0  0  0", textUI.getStack().toString());
    }
 
    @Test
@@ -28,7 +28,7 @@ public class TextUITest {
       TextUI textUI = new TextUI();
       textUI.inputDispatcher("7");
       textUI.inputDispatcher("4-");
-      assertEquals("3  0  0  0", textUI.getNumStack().toString());      
+      assertEquals("3  0  0  0", textUI.getStack().toString());      
    }
 
    @Test
@@ -37,7 +37,7 @@ public class TextUITest {
       textUI.inputDispatcher("7");
       textUI.inputDispatcher("4");
       textUI.inputDispatcher("-");
-      assertEquals("3  0  0  0", textUI.getNumStack().toString());      
+      assertEquals("3  0  0  0", textUI.getStack().toString());      
    }
 
    @Test
@@ -45,7 +45,7 @@ public class TextUITest {
       TextUI textUI = new TextUI();
       textUI.inputDispatcher("7");
       textUI.inputDispatcher("4+");
-      assertEquals("11  0  0  0", textUI.getNumStack().toString());      
+      assertEquals("11  0  0  0", textUI.getStack().toString());      
    }
 
    @Test
@@ -54,14 +54,14 @@ public class TextUITest {
       textUI.inputDispatcher("7");
       textUI.inputDispatcher("4");
       textUI.inputDispatcher("+");
-      assertEquals("11  0  0  0", textUI.getNumStack().toString());      
+      assertEquals("11  0  0  0", textUI.getStack().toString());      
    }
       @Test
    public void multiplicationWorks1() {
       TextUI textUI = new TextUI();
       textUI.inputDispatcher("7");
       textUI.inputDispatcher("4*");
-      assertEquals("28  0  0  0", textUI.getNumStack().toString());      
+      assertEquals("28  0  0  0", textUI.getStack().toString());      
    }
 
    @Test
@@ -70,14 +70,14 @@ public class TextUITest {
       textUI.inputDispatcher("7");
       textUI.inputDispatcher("4");
       textUI.inputDispatcher("*");
-      assertEquals("28  0  0  0", textUI.getNumStack().toString());      
+      assertEquals("28  0  0  0", textUI.getStack().toString());      
    }
       @Test
    public void divisionWorks1() {
       TextUI textUI = new TextUI();
       textUI.inputDispatcher("100");
       textUI.inputDispatcher("3/");
-      assertEquals("33.333332  0  0  0", textUI.getNumStack().toString());      
+      assertEquals("33.333332  0  0  0", textUI.getStack().toString());      
    }
 
    @Test
@@ -86,6 +86,14 @@ public class TextUITest {
       textUI.inputDispatcher("100");
       textUI.inputDispatcher("3");
       textUI.inputDispatcher("/");
-      assertEquals("33.333332  0  0  0", textUI.getNumStack().toString());      
-   }   
+      assertEquals("33.333332  0  0  0", textUI.getStack().toString());      
+   }
+   
+   @Test
+   public void emptyInputDuplicatesLastInStack() {
+      TextUI textUI = new TextUI();
+      textUI.inputDispatcher("2");
+      textUI.inputDispatcher("");
+      assertEquals("2  2  0  0", textUI.getStack().toString());        
+   }
 }
