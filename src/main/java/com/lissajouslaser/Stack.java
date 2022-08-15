@@ -44,7 +44,9 @@ public class Stack {
     * the backing array.
     */
    private void pointerWrap() {
-      pointer = Math.floorMod(pointer, numbers.length);
+      if (pointer == -1 || pointer == numbers.length) {
+         pointer = Math.floorMod(pointer, numbers.length);
+      }
    }
 
    @Override
